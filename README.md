@@ -13,3 +13,13 @@ To generate the docs, run this
 ```
 ./run.sh
 ```
+
+This run script will do the following things:
+
+* for each file `rmd/filename.Rmd`, create `html/filename.html`
+* knit the existings Sphinx docs in `docs`, which will create `docs/_build/`
+* move contents of `html` into `docs/_build`
+
+Links:
+
+* [sphinx-build events](http://www.sphinx-doc.org/en/stable/extdev/appapi.html#sphinx-core-events)
