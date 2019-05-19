@@ -1,4 +1,11 @@
 
+# [description]
+#     Given a .Rmd file, run rmarkdown_render()
+#     to generate HTML output from it. All
+#     customization of the file is done in
+#     its YAML headmatter (not in the call
+#     to render())
+
 library(argparse)
 
 parser <- argparse::ArgumentParser()

@@ -2,6 +2,8 @@
 
 This project documents examples of using `knitr`, `rmarkdown`, and `bookdown` to write single-source static documentation using both R and Python code.
 
+The intent of the project is to create something similar to `nbsphinx` (the plugin that allows you to mix jupyter notebooks in with .rst source files), but for `.Rmd` files.
+
 The flow for writing documentation in this project looks like this:
 
 * individual pages written as `.Rmd` files

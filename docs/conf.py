@@ -180,7 +180,7 @@ epub_title = project
 epub_exclude_files = ['search.html']
 
 
-# -- Extension configuration -------------------------------------------------
+# -- Event handlers -----------------------------------------------------
 
 
 # Register event handler, based on
@@ -189,6 +189,10 @@ import subprocess
 
 
 def build_finished_handler(app, exception):
+    """
+    Move external static HTML into the expected place
+    so Sphinx links to it work
+    """
     print("copying static html files please work")
     cmd = "./../test.sh"
     subprocess.run(
@@ -199,13 +203,9 @@ def build_finished_handler(app, exception):
 
 
 def setup(app):
-    app.connect('source-read', source_read_handler)
-
-
-# import subprocess
-# cmd = "./../test.sh"
-# subprocess.run(
-#     cmd,
-#     shell=True,
-#     check=True
-# )
+    """
+    Register event handlers to customize the doc
+    build process.
+    """
+    app.connect('builder-inited', generate_vignettes)
+    app.connect('build-finished', build_finished_handler)
