@@ -10,12 +10,6 @@ The flow for writing documentation in this project looks like this:
 * edit `docs/index.rst` to change document order
 * build the full site with `cd docs/ && make html`
 
-To generate the docs, run this
-
-```
-./run.sh
-```
-
 This run script will do the following things:
 
 * for each file `rmd/filename.Rmd`, create `html/filename.html`
