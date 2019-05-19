@@ -22,6 +22,15 @@ This run script will do the following things:
 * knit the existings Sphinx docs in `docs`, which will create `docs/_build/`
 * move contents of `html` into `docs/_build`
 
-Links:
+## Reasons the current version of this project sucks
+
+* the files from .Rmd sources aren't indexed in Sphinx's built-in search index (so people searching for keywords don't benefit from them)
+* not as fully-baked as a proper sphinx add-in like `nbsphinx`, so you have to do a lot of manual stuff
+    - touch `Makefile`
+    - paste a lot of code into `conf.py`
+* requires you to put R in whatever environment is generating your docs (e.g. the servers run by Read The Docs), which is pretty expensive. This is needed even if your `.Rmd` files are only unevaluated code blocks and text
+
+## Links
 
 * [sphinx-build events](http://www.sphinx-doc.org/en/stable/extdev/appapi.html#sphinx-core-events)
+* [nbsphinx source](https://github.com/spatialaudio/nbsphinx/tree/master/src)

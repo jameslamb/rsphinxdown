@@ -1,3 +1,7 @@
 
 # example stuff
 example.html
+docs/pages/example.rst
+
+# build files
+docs/_build/*

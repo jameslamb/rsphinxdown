@@ -13,8 +13,11 @@ help:
 
 .PHONY: help Makefile
 
+# Create fake .rst files
+intermediate_rst:
+	@Rscript ../generate_intermediate_rst.R --source-dir $$(pwd)
+
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
-%: Makefile
-	@Rscript ../generate_intermediate_rst.R --source-dir $$(pwd) && \
-	$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+%: intermediate_rst Makefile
+	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)

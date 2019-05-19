@@ -42,12 +42,6 @@ if (num_files == 0){
     print(paste0("[INFO] ", num_files, " files found"))
 }
 
-PLACEHOLDER_CONTENT <- "
-=======
-A title
-=======
-
-"
 
 for (rmd_file in rmd_files){
 
@@ -63,8 +57,22 @@ for (rmd_file in rmd_files){
     )
 
     print(sprintf("[INFO] Creating file: %s", output_file))
+
+    # The placeholder content should have the same title
+    # as the .Rmd (so the sphinx table of contents is right)
+    rmd_title <- rmarkdown::yaml_front_matter(
+        input = rmd_file
+    )[["title"]]
+
+    placeholder_content <- paste0(
+        rmd_title
+        , "\n"
+        , paste(rep("=", nchar(rmd_title)), collapse = "")
+        , "\n"
+    )
+
     write(
-        x = PLACEHOLDER_CONTENT
+        x = placeholder_content
         , file = output_file
     )
 }

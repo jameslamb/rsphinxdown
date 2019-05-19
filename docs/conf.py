@@ -200,7 +200,7 @@ import subprocess
 #     cmd = f"Rscript ../generate_intermediate_rst.R --source-dir {working_dir}"
 
 
-def generate_vignettes(app):
+def generate_vignettes(app, exception):
     """
     Before doing any RST processing, create static
     HTMLs from any R markdown files in the project.
@@ -228,5 +228,5 @@ def setup(app):
     build process.
     """
     # app.connect('builder-inited', _generate_intermediate_rst)
-    app.connect('builder-inited', generate_vignettes)
+    app.connect('build-finished', generate_vignettes)
     app.connect('build-finished', build_finished_handler)
