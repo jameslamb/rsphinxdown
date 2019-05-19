@@ -2,14 +2,14 @@
 # [description]
 #     Given a path to a directory, search for all
 #     .Rmd files (recursively). For each of them,
-#     call rmarkdown::render() and create the equivalent
-#     HTML output.
+#     generate a .rst file in the same location with
+#     just enough in it to trick the Sphinx parser
 #
 #     Given file /path/to/thing.Rmd, file
-#     /path/to/thing.html will be generated.
+#     /path/to/thing.rst will be generated.
 #
 # [usage]
-#     Rscript generate_r_html.R --source-dir $(pwd)/docs
+#     Rscript generate_intermediate_rst.R --source-dir $(pwd)/docs
 
 library(argparse)
 
@@ -26,7 +26,7 @@ args <- parser$parse_args()
 SOURCE_DIR <- args[["source_dir"]]
 
 # Find all the R files you can
-print("[INFO] Searching for .Rmd files")
+print("[INFO] Searching for R files")
 rmd_files <- list.files(
     path = SOURCE_DIR
     , pattern = ".Rmd"
@@ -42,14 +42,20 @@ if (num_files == 0){
     print(paste0("[INFO] ", num_files, " files found"))
 }
 
+PLACEHOLDER_CONTENT <- "
+=======
+A title
+=======
+
+"
+
 for (rmd_file in rmd_files){
 
     output_dir <- dirname(rmd_file)
     base_filename <- basename(rmd_file)
     new_filename <- paste0(
-        "TEMP-"
-        , tools::file_path_sans_ext(base_filename)
-        , ".html"
+        tools::file_path_sans_ext(base_filename)
+        , ".rst"
     )
     output_file <- file.path(
         output_dir
@@ -57,10 +63,8 @@ for (rmd_file in rmd_files){
     )
 
     print(sprintf("[INFO] Creating file: %s", output_file))
-    rmarkdown::render(
-        input = rmd_file
-        , intermediates_dir = tempdir()
-        , output_dir = output_dir
-        , output_file = output_file
+    write(
+        x = PLACEHOLDER_CONTENT
+        , file = output_file
     )
 }

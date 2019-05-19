@@ -185,21 +185,41 @@ epub_exclude_files = ['search.html']
 
 # Register event handler, based on
 # http://www.sphinx-doc.org/en/stable/extdev/appapi.html#sphinx-core-events
+# Heavily inspired by nbsphinx
+# https://github.com/spatialaudio/nbsphinx/tree/master/src
+import os
 import subprocess
 
+# def _generate_intermediate_rst(app):
+#     """
+#     For every .Rmd file found, generate a placeholder .rst
+#     file to trick the Sphinx parser. Will be overwritten
+#     later in the process
+#     """
+#     working_dir = os.getcwd()
+#     cmd = f"Rscript ../generate_intermediate_rst.R --source-dir {working_dir}"
+
+
+def generate_vignettes(app):
+    """
+    Before doing any RST processing, create static
+    HTMLs from any R markdown files in the project.
+    """
+    working_dir = os.getcwd()
+    cmd = f"Rscript ../generate_r_html.R --source-dir {working_dir}"
 
 def build_finished_handler(app, exception):
     """
     Move external static HTML into the expected place
     so Sphinx links to it work
     """
-    print("copying static html files please work")
-    cmd = "./../test.sh"
-    subprocess.run(
-        cmd,
-        shell=True,
-        check=True
-    )
+    print("still here")
+    # cmd = "./../test.sh"
+    # subprocess.run(
+    #     cmd,
+    #     shell=True,
+    #     check=True
+    # )
 
 
 def setup(app):
@@ -207,5 +227,6 @@ def setup(app):
     Register event handlers to customize the doc
     build process.
     """
+    # app.connect('builder-inited', _generate_intermediate_rst)
     app.connect('builder-inited', generate_vignettes)
     app.connect('build-finished', build_finished_handler)
