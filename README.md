@@ -1,4 +1,4 @@
-# polydoc
+# rsphinxdown
 
 This project documents examples of using `knitr`, `rmarkdown`, and `bookdown` to write single-source static documentation using both R and Python code.
 
